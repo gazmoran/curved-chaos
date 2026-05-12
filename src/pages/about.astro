@@ -1,28 +1,65 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = "About Me";
 
+const identity = {
+	name: "Gary",
+	age: 43,
+	location: "Earth",
+	interests: ["Astro", "Web Development", "Space Exploration"],
+};
+
+const skills = ["HTML", "JavaScript", "Astro", "CSS", "React"];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = "crimson";
+const fontWeight = "bold";
+const textCase = "uppercase";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
+<BaseLayout pageTitle={pageTitle}>
 
-		<a href="/">Home</a>
-		<a href="/about/">About</a>
-		<a href="/blog/">Blog</a>
+	<style define:vars={{skillColor, fontWeight, textCase}}>
+		h1 {
+			color: purple;
+			font-size: 4rem;
+		}
+		.skill {
+			font-weight: var(--fontWeight);
+			color: var(--skillColor);
+			text-transform: var(--textCase);
+		}
+	</style>
 
-		<h1>My Astro Site</h1>
-		<h1>About Me</h1>
-		<h2>... and my new Astro site!</h2>
+	<p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
 
-		<p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
+	<p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
 
-		<p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
-	</body>
-</html>
+	<p>Here's a little bit about me:</p>
+	<ul>
+		<li><strong>Name:</strong> {identity.name}</li>
+		<li><strong>Age:</strong> {identity.age}</li>
+		<li><strong>Location:</strong> {identity.location}</li>
+	</ul>
+
+	<h2>My Interests</h2>
+	<ul>
+		{identity.interests.map((interest) => (
+			<li>{interest}</li>
+		))}
+	</ul>
+
+	<h2>My Skills</h2>
+	<ul>
+		{skills.map((skill) => (
+			<li class="skill">{skill}</li>
+		))}
+	</ul>
+
+	{happy && <p>I am happy to be learning Astro!</p>}
+	{finished && <p>I haven't finished the tutorial yet, but I'm making progress!</p>}
+	{goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+</BaseLayout>
